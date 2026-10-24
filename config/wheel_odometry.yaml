@@ -1,0 +1,23 @@
+encoder_odometry:
+  ros__parameters:
+    use_sim_time: false
+    input_topic: /wheel_states
+    input_mode: velocity
+    odom_topic: /odom
+    odom_frame: odom
+    base_frame: base_link
+    publish_tf: true
+    max_sample_interval: 0.2
+    # Robot center is (0.43, 0.43) in the existing corner-origin base_link.
+    # Wheel locations: 45, 135, 225, 315 degrees about that center; radius 0.503 m.
+    wheel_names: [front_left, rear_left, rear_right, front_right]
+    wheel_x: [0.785674711, 0.074325289, 0.074325289, 0.785674711]
+    wheel_y: [0.785674711, 0.785674711, 0.074325289, 0.074325289]
+    # Positive rolling direction is counterclockwise tangent to the center circle.
+    wheel_drive_angles: [2.356194490, 3.926990817, 5.497787144, 0.785398163]
+    wheel_radii: [0.127, 0.127, 0.127, 0.127]
+    # Match the actual positive RPM direction of each wheel during hardware checks.
+    wheel_signs: [1.0, 1.0, 1.0, 1.0]
+    # Placeholder variances, not calibrated estimates.
+    pose_covariance_diagonal: [0.01, 0.01, 1000000.0, 1000000.0, 1000000.0, 0.02]
+    twist_covariance_diagonal: [0.01, 0.01, 1000000.0, 1000000.0, 1000000.0, 0.02]
