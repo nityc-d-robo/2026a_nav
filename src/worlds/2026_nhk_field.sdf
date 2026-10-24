@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="2026_nhk_field">
+    <!-- 物理計算の設定 -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <gravity>0 0 -9.81</gravity>
+
+    <!-- 基本システム -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors"/>
+
+    <light type="directional" name="sun">
+        <cast_shadows>true</cast_shadows>
+        <pose>0 0 10 0 0 0</pose>    <!-- 光源の位置 -->
+        <diffuse>0.8 0.8 0.8 1</diffuse>    <!-- 拡散光 -->
+        <specular>0.2 0.2 0.2 1</specular>    <!-- 鏡面光 -->
+        <attenuation>
+            <range>1000</range>
+            <constant>0.9</constant>
+            <linear>0.01</linear>
+            <quadratic>0.001</quadratic>
+        </attenuation>
+        <direction>-0.5 0.1 -0.9</direction>    <!-- 光の方向 -->
+    </light>
+
+    <!-- フィールド -->
+    <model name="field">
+      <static>true</static>
+      <!-- (x y z) (roll pitch yaw) -->
+      <!-- x y z θx θy θz (m, rad)-->
+      
+      <pose>0 -0.0140 0 1.57079632679 0 0</pose>
+
+      <link name="field_link">
+
+        <!-- 表示用 -->
+        <visual name="field_visual">
+          <geometry>
+            <mesh>
+              <uri>meshes/2026_nhk_field.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0.7 0.7 0.7 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- 衝突判定用 -->
+        <collision name="field_collision">
+          <geometry>
+            <mesh>
+              <uri>meshes/2026_nhk_field.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+        </collision>
+
+      </link>
+    </model>
+
+    <include>
+      <uri>model/robot/2026a_robot.sdf</uri>
+      <name>robot</name>
+
+      <!-- 本番環境を想定したスタート位置 -->
+      <pose>3.6 -0.2 0.0141 0 0 -1.57079632679</pose>
+    </include>
+  </world>
+</sdf>

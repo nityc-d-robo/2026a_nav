@@ -1,0 +1,7 @@
+# Gazebo側とROS側の名前を別々に指定する。
+# 数字で始まるworld名を、ROSのトピック名・リマップ元には使用しない。
+- ros_topic_name: /clock
+  gz_topic_name: /world/2026_nhk_field/clock
+  ros_type_name: rosgraph_msgs/msg/Clock
+  gz_type_name: gz.msgs.Clock
+  direction: GZ_TO_ROS
